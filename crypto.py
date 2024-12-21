@@ -5,7 +5,8 @@ class Crypto:
         chiphertext=""
         for i in plaintext:
             if i.isalpha():
-                cipher=chr((ord(i)-ord("A" if i.isupper() else"a" )+key) %26+ord("A" if i.isupper() else "a"))
+                cipher=chr((ord(i)-ord("A" if i.isupper() else"a" )+key)
+                %26+ord("A" if i.isupper() else "a"))
                 chiphertext += cipher
         return chiphertext
     
@@ -29,3 +30,25 @@ class Crypto:
                 index=key.index(i)
                 plaintext+=chr(index+97)
         return plaintext
+
+    #vernam cipher encryption and decryptio method
+    def vernam(plaintext,key):
+        cipher_text=""
+        if len(key)<len(plaintext):
+            num=int(len(plaintext)/len(key)+1)
+            key=key * num
+        for i in range(len(plaintext)):
+            cipher=chr(ord(plaintext[i])^ord(key[i]))
+            cipher_text += cipher
+        return cipher_text
+
+    #vigenere cipher encryption and decryptio method
+    def vigenere(plaintext,key):
+        cipher_text=""
+        if len(key)<len(plaintext):
+            num=int(len(plaintext)/len(key)+1)
+            key=key * num
+        for i in range(len(plaintext)):
+            cipher=chr((ord(plaintext[i])+ord(key[i]))%256)
+            cipher_text += cipher
+        return cipher_text
